@@ -50,7 +50,7 @@
             <artifactId>querydsl-apt</artifactId>
             <version>${querydsl.version}</version>
         </dependency>
-        <!-- p6spy-spring-boot-starter : 쿼리로그에 파라미터 ? 로 뜨는거 값으로 보여줌 -->
+        <!-- p6spy-spring-boot-starter : 쿼리로그에 파라미터 ? 로 뜨는거 값으로 보여줌 (운영사용 시 성능이슈 테스트 필요) -->
         <dependency>
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
