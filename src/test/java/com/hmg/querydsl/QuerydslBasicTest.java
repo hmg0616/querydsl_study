@@ -1,7 +1,6 @@
 package com.hmg.querydsl;
 
 import com.hmg.querydsl.entity.Member;
-import com.hmg.querydsl.entity.QMember;
 import com.hmg.querydsl.entity.Team;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static com.hmg.querydsl.entity.QMember.member;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -56,12 +56,19 @@ public class QuerydslBasicTest {
 
     @Test
     public void startQuerydsl() {
-        QMember m = QMember.member;
+//        QMember m = QMember.member;
+//        QMember m = new QMember("m");  // 여기서 "m"은 JPQL에서 테이블 alias로 사용됨
+
+//        Member findMember = queryFactory
+//                .select(m)
+//                .from(m)
+//                .where(m.username.eq("member1"))
+//                .fetchOne();
 
         Member findMember = queryFactory
-                .select(m)
-                .from(m)
-                .where(m.username.eq("member1"))
+                .select(member) // Qmember.member static import 사용 (권장)
+                .from(member)
+                .where(member.username.eq("member1"))
                 .fetchOne();
 
         assertThat(findMember.getUsername()).isEqualTo("member1");
