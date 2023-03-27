@@ -1,6 +1,7 @@
 package com.hmg.querydsl;
 
 import com.hmg.querydsl.dto.MemberDto;
+import com.hmg.querydsl.dto.QMemberDto;
 import com.hmg.querydsl.dto.UserDto;
 import com.hmg.querydsl.entity.Member;
 import com.hmg.querydsl.entity.QMember;
@@ -584,6 +585,19 @@ public class QuerydslBasicTest {
 
         for(UserDto userDto : result) {
             System.out.println("userDto = " + userDto);
+        }
+    }
+
+    @Test
+    public void findDtoByQueryProjection() {
+        // @QueryProjection 사용
+        List<MemberDto> result = queryFactory
+                .select(new QMemberDto(member.username, member.age))
+                .from(member)
+                .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
         }
     }
 }
