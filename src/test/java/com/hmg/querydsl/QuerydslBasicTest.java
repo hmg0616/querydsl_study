@@ -657,4 +657,52 @@ public class QuerydslBasicTest {
     private BooleanExpression allEq(String usernameCond, Integer ageCond) { // 조합 가능
         return usernameEq(usernameCond).and(ageEq(ageCond));
     }
+
+    @Test
+    public void bulkUpdate() {
+        // bulk 연산 주의점!!
+        // bulkUpdate 시에 영속성 컨텍스트는 무시하고 DB를 바로 업데이트한다.
+        // 그래서 bulkUpdate 후 select를 해보면 DB에는 반영이 되었으나, 영속성 컨텍스트에는 기존 값을 가지고 있어서
+        // 기존 값을 그대로 보여주게 된다. 따라서 bulkUpdate 후에는 영속성 컨텍스트를 초기화해주어야한다. flush - clear
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비회원")
+                .where(member.age.lt(28))
+                .execute();
+
+        em.flush();
+        em.clear();
+
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .fetch();
+
+        for(Member member : result) {
+            System.out.println("member = " + member);
+        }
+    }
+
+    @Test
+    public void bulkAdd() {
+        long count = queryFactory
+                .update(member)
+                .set(member.age, member.age.add(1))
+                .execute();
+    }
+
+    @Test
+    public void bulkMultiply() {
+        long count = queryFactory
+                .update(member)
+                .set(member.age, member.age.multiply(2))
+                .execute();
+    }
+
+    @Test
+    public void bulkDelete() {
+        long count = queryFactory
+                .delete(member)
+                .where(member.age.gt(18))
+                .execute();
+    }
 }
