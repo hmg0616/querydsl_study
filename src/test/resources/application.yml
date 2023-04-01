@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
   # h2 콘솔 사용
   h2:
     console:

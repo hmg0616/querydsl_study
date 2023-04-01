@@ -1,0 +1,5 @@
+GET localhost:8080/v1/members
+
+###
+
+GET localhost:8080/v1/members?teamname=teamB&ageGoe=31&ageLoe=35
