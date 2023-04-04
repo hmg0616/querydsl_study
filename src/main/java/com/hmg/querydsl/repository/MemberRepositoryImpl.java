@@ -3,7 +3,6 @@ package com.hmg.querydsl.repository;
 import com.hmg.querydsl.dto.MemberSearchCondition;
 import com.hmg.querydsl.dto.MemberTeamDto;
 import com.hmg.querydsl.dto.QMemberTeamDto;
-import com.hmg.querydsl.entity.Member;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
